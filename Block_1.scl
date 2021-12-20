@@ -1,0 +1,16 @@
+﻿FUNCTION "Block_1" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	IF "Data_block_1".b2 = TRUE THEN
+	    "Data_block_1".nombre := 'Davalos';
+	    
+	END_IF;
+	
+	IF "Data_block_1".b2 = FALSE THEN
+	    "Data_block_1".nombre := 'Michel';
+	    
+	END_IF;
+END_FUNCTION
+

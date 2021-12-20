@@ -1,0 +1,43 @@
+﻿FUNCTION_BLOCK "FB_Tolvas"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR 
+      "Timer" { S7_SetPoint := 'False'} : "Clase_Tolvas";
+   END_VAR
+
+   VAR_TEMP 
+      indice_Timers : Int;
+      indice_NodeRED : Int;
+   END_VAR
+
+
+BEGIN
+	FOR #indice_Timers := 0 TO 3 DO
+	    "Timers"(indice_timers := #indice_Timers,
+	             Indice_Tolva:="index");
+	END_FOR;
+	
+	//actualizacion de datos NodeRED
+	FOR #indice_NodeRED := 1 TO 10 DO
+	    "NodeRed".Tiempo_transcurrido_Tolva[#indice_NodeRED].Timer_1_TON_seg := TIME_TO_INT(#Timer.Tolva[#indice_NodeRED].Timer_TON_1.ET);
+	    "NodeRed".Tiempo_transcurrido_Tolva[#indice_NodeRED].Timer_2_TON_seg := TIME_TO_INT(#Timer.Tolva[#indice_NodeRED].Timer_TON_2.ET);
+	    "NodeRed".Tiempo_transcurrido_Tolva[#indice_NodeRED].Timer_1_TOF_seg := TIME_TO_INT(#Timer.Tolva[#indice_NodeRED].Timer_TOF_1.ET);
+	    "NodeRed".Tiempo_transcurrido_Tolva[#indice_NodeRED].Timer_2_TOF_seg := TIME_TO_INT(#Timer.Tolva[#indice_NodeRED].Timer_TOF_2.ET);
+	END_FOR;
+	//Recepcion de datos NodeRED
+	CASE "NodeRed".No_Timer OF
+	    0:
+	        #Timer.Tolva["NodeRed".No_Tolva].Setpoint_1_TON_seg := "NodeRed".Setpoint_seg;
+	    1:  
+	        #Timer.Tolva["NodeRed".No_Tolva].Setpoint_2_TON_seg := "NodeRed".Setpoint_seg;
+	    2:
+	        #Timer.Tolva["NodeRed".No_Tolva].Setpoint_1_TOF_seg := "NodeRed".Setpoint_seg;
+	    3:
+	        #Timer.Tolva["NodeRed".No_Tolva].Setpoint_2_TOF_seg := "NodeRed".Setpoint_seg;
+	END_CASE;
+	IF "NodeRed".Trigger THEN
+	    #Timer.Tolva["NodeRed".No_Tolva].Trigger["NodeRed".No_Timer] := "NodeRed".Trigger;
+	    "NodeRed".Trigger := FALSE;
+	END_IF;
+END_FUNCTION_BLOCK
+

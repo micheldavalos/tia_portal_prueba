@@ -1,0 +1,26 @@
+﻿FUNCTION_BLOCK "Clase_Tolvas"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR 
+      Tolva : Array[0..10] of Struct
+         Trigger : Array[0..3] of Bool;
+         Aux_timerON : Array[0..3] of Bool;
+         Reset : Array[0..3] of Bool;
+         Termino : Array[0..3] of Bool;
+         Setpoint_1_TON_seg : DInt;
+         Setpoint_2_TON_seg : DInt;
+         Setpoint_1_TOF_seg : DInt;
+         Setpoint_2_TOF_seg : DInt;
+         Timer_TON_1 {InstructionName := 'IEC_TIMER'; LibVersion := '1.0'; S7_SetPoint := 'False'} : IEC_TIMER;
+         Timer_TON_2 {InstructionName := 'IEC_TIMER'; LibVersion := '1.0'} : IEC_TIMER;
+         Timer_TOF_1 {InstructionName := 'IEC_TIMER'; LibVersion := '1.0'} : IEC_TIMER;
+         Timer_TOF_2 {InstructionName := 'IEC_TIMER'; LibVersion := '1.0'} : IEC_TIMER;
+      END_STRUCT;
+   END_VAR
+
+
+BEGIN
+	"DB_Tolvas"();
+	
+END_FUNCTION_BLOCK
+

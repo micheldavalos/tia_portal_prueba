@@ -1,0 +1,14 @@
+﻿ORGANIZATION_BLOCK "Main"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	"index" := "index" + 1;
+	IF "index" > 10 THEN
+	    "index" := 1;
+	END_IF;
+	"Block_1"();
+	
+	"DB_Tolvas"();
+END_ORGANIZATION_BLOCK
+

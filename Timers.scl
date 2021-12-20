@@ -1,0 +1,34 @@
+﻿FUNCTION "Timers" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Indice_Tolva : Int;
+      indice_timers : Int;
+   END_VAR
+
+
+BEGIN
+	IF "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Trigger[#indice_timers] THEN
+	    "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Aux_timerON[#indice_timers] := TRUE;
+	    "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Trigger[#indice_timers] := FALSE;
+	END_IF;
+	
+	IF "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Reset[#indice_timers] OR "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Termino[#indice_timers] THEN
+	    "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Aux_timerON[#indice_timers] := FALSE;
+	    "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Reset[#indice_timers] := FALSE;
+	END_IF;
+	
+	"DB_Tolvas".Timer.Tolva[#Indice_Tolva].Timer_TON_1.TON(IN := "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Aux_timerON[0],
+	                                                       PT := "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Setpoint_1_TON_seg * 1000,
+	                                                       Q => "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Termino[0]);
+	"DB_Tolvas".Timer.Tolva[#Indice_Tolva].Timer_TON_2.TON(IN := "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Aux_timerON[1],
+	                                                       PT := "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Setpoint_2_TON_seg * 1000,
+	                                                       Q => "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Termino[1]);
+	"DB_Tolvas".Timer.Tolva[#Indice_Tolva].Timer_TOF_1.TOF(IN := "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Aux_timerON[2],
+	                                                       PT := "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Setpoint_1_TOF_seg * 1000,
+	                                                       Q => "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Termino[2]);
+	"DB_Tolvas".Timer.Tolva[#Indice_Tolva].Timer_TOF_2.TOF(IN := "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Aux_timerON[3],
+	                                                       PT := "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Setpoint_2_TOF_seg * 1000,
+	                                                       Q => "DB_Tolvas".Timer.Tolva[#Indice_Tolva].Termino[3]);
+END_FUNCTION
+
