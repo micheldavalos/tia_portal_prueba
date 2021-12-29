@@ -3,12 +3,23 @@
 VERSION : 0.1
 
 BEGIN
-	"index" := "index" + 1;
-	IF "index" > 10 THEN
-	    "index" := 1;
-	END_IF;
-	"Block_1"();
+	//"index" := "index" + 1;
+	//IF "index" > 10 THEN
+	//    "index" := 1;
+	//END_IF;
 	
-	"DB_Tolvas"();
+	//"DB_Tolvas"();
+	
+	"Data_block_1".n := "Data_block_1".n + "Data_block_1".hz;
+	"Data_block_1".SineWave := SIN("Data_block_1".n);
+	
+	"Data_block_1".i := "Data_block_1".i + 0.001;
+	
+	IF "Data_block_1".i > 500 THEN
+	    "Data_block_1".i := 0.0;
+	END_IF;
+	
+	
+	
 END_ORGANIZATION_BLOCK
 
