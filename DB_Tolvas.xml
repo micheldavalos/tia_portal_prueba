@@ -2,7 +2,7 @@
 <Document>
   <Engineering version="V17" />
   <DocumentInfo>
-    <Created>2021-12-20T22:44:17.5968517Z</Created>
+    <Created>2021-12-29T14:14:50.3702334Z</Created>
     <ExportSetting>WithDefaults</ExportSetting>
     <InstalledProducts>
       <Product>
@@ -35,6 +35,7 @@
     <AttributeList>
       <AutoNumber>true</AutoNumber>
       <DBAccessibleFromOPCUA>true</DBAccessibleFromOPCUA>
+      <DBAccessibleFromWebserver>true</DBAccessibleFromWebserver>
       <HeaderAuthor />
       <HeaderFamily />
       <HeaderName />
